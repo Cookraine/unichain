@@ -48,7 +48,7 @@ class User(id: Int, balance: Token) {
   def getID: Int = _id
   def getBalance: Token = _balance
 
-  def setBalance(balance: Token): Unit = {
+  def setBalance(balance: Token) = {
     _balance = balance
   }
 
@@ -88,7 +88,7 @@ class BlockBuilder() {
       }
     }
 
-  def addTransaction(tx: Transaction): Unit = {
+  def addTransaction(tx: Transaction) = {
     if (validateTransaction(tx)) {
       transactionQueue.enqueue(tx)
       println(s"Transaction from ${tx.senderID} to ${tx.receiverID} added to queue.")
@@ -105,7 +105,7 @@ class BlockBuilder() {
 
 class Sequencer {
   def sortTransactions(transactions: Seq[Transaction]): Seq[Transaction] = {
-    transactions.sortBy(-_.txPriorityFee) // Сортування за спаданням пріоритетності
+    transactions.sortBy(-_.txPriorityFee)
   }
 }
 
@@ -124,7 +124,7 @@ class Validator(id: Int, balance: Token) {
   def getStakingWeight: Double = _stakingWeight
   def getShareIncome: Double = _shareIncome
 
-  def setBalance(balance: Token): Unit = {
+  def setBalance(balance: Token) = {
     _balance = balance
   }
 
@@ -140,7 +140,7 @@ class Validator(id: Int, balance: Token) {
     }
   }
 
-  def setShareIncome(totalStaked: Double): Unit = {
+  def setShareIncome(totalStaked: Double) = {
     if (totalStaked > 0) {
       _shareIncome = (_stakedAmount / totalStaked) * 100
     } else {
@@ -148,14 +148,14 @@ class Validator(id: Int, balance: Token) {
     }
   }
 
-  def receiveReward(rewardPool: Double): Unit = {
+  def receiveReward(rewardPool: Double) = {
     val reward = (rewardPool * _shareIncome / 100.0)
     _balance += new Token(reward, _balance.Symb)
   }
 }
 
 object Main {
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]) = {
 
     var user1 = new User(1, new Token(100, "UC"))
     var user2 = new User(2, new Token(100, "UC"))
